@@ -29,11 +29,10 @@ public class ProcessadorDePix {
         throw new ErroChaveEmBranco();
       }
 
-      ProcessadorDePix processadorDePix = new ProcessadorDePix(servidor);
-      ControladorDePix controladorDePix = new ControladorDePix(processadorDePix);
-      String mensagem = controladorDePix.aoConfirmarPix(2000, "abc123");
+      Conexao conexaoOK = servidor.abrirConexao();
+      String retorno = conexaoOK.enviarPix(valor, chave);
 
-      switch (mensagem) {
+      switch (retorno) {
         case "sucesso":
           System.out.println("Pix realizado com sucesso.");
           break;
@@ -46,8 +45,8 @@ public class ProcessadorDePix {
       }
       // FALTA FECHAR A CONEXÃO COM O SERVIDOR
 
-    } catch (ErroDePix e) {
-      System.out.println(e.getMessage());
+    } finally {
+      servidor.abrirConexao().close();
     }
   }
 }
