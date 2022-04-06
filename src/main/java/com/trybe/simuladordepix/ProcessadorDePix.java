@@ -25,7 +25,7 @@ public class ProcessadorDePix {
       if (valor <= 0) {
         throw new ErroValorNaoPositivo();
       }
-      if (chave.isEmpty()) {
+      if (chave.isBlank()) {
         throw new ErroChaveEmBranco();
       }
 
@@ -43,7 +43,6 @@ public class ProcessadorDePix {
         default:
           throw new ErroInterno();
       }
-      // FALTA FECHAR A CONEXÃO COM O SERVIDOR
 
     } finally {
       servidor.abrirConexao().close();
